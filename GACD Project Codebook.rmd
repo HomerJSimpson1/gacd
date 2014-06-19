@@ -26,7 +26,7 @@ topdir <- "UCI HAR Dataset"
 
 featNames <- function(toplevdir) {
   ## Use the original column names from the original data set (located in the "features" file.
-  xcolnames <- read.table(paste(toplevdir, "/features.txt", sep=""))
+  xcolnames <- read.table(paste(toplevdir, "/features.txt", sep=""), stringsAsFactors=FALSE)
   xcolnames <- xcolnames[,2]
 
   ## Use gsub() to replace various components of the feature names.
@@ -43,8 +43,13 @@ featNames <- function(toplevdir) {
   return(xcolnames)
 }
 
-origcolnames <- read.table(paste(topdir, "/features.txt", sep=""))
+origcolnames <- read.table(paste(topdir, "/features.txt", sep=""),stringsAsFactors=FALSE)
 origcolnames <- as.vector(origcolnames[,2])
+
+# origcolnames <- as.vector(c("activityLabel",origcolnames))
+# print(str(origcolnames))
+# origcolnames <- c("subjectId",origcolnames)
+# print(str(origcolnames))
 
 #origcolnames <- as.vector(rbind("subjectId", "activityLabel", origcolnames))
 
@@ -53,9 +58,15 @@ origcolnames <- as.vector(origcolnames[,2])
 xcolumnnames <- as.vector(featNames(topdir))
 #xcolumnnames <- as.vector(rbind("subjectId", "activityLabel", xcolumnnames))
 
+#xcolumnnames <- as.vector(c("activityLabel",xcolumnnames))
+#print(str(xcolumnnames))
+#xcolumnnames <- c("subjectId",xcolumnnames)
 #print(str(xcolumnnames))
 
-xcolumnnames <- as.data.frame(cbind(xcolumnnames, origcolnames))
+#print(str(xcolumnnames))
+
+#xcolumnnames <- as.data.frame(cbind(xcolumnnames, origcolnames),stringsAsFactors=FALSE)
+xcolumnnames <- as.data.frame(cbind(xcolumnnames, origcolnames),stringsAsFactors=FALSE)
 
 names(xcolumnnames) <- c("Descriptive Variable Name", "Original Variable Name")
 #print(xcolumnnames)
@@ -65,11 +76,14 @@ names(xcolumnnames) <- c("Descriptive Variable Name", "Original Variable Name")
 meansd <- sapply(xcolumnnames[,1], function(x) any(grep(paste(c('activityId','subjectId','-mean','st_dev'),collapse='|'), x)))
 xcolnms <- xcolumnnames[meansd,]
 
+#print(str(xcolnms))
+
 ## Remove the meanFreq columnns.
 meansd <- sapply(xcolnms[,1], function(x) any(!grepl('meanFreq', x)))
 xcolnms <- xcolnms[meansd,]
 
-#xcolnms <- rbind(cbind(c("subjectId","subjectId"),c("activityLabel", "activityLabel")),xcolnms)
+#xcolnms <- rbind(as.data.frame(c("subjectId","subjectId")),as.data.frame(c("activityLabel", "activityLabel")),xcolnms)
+xcolnms <- rbind(c("subjectId","subjectId"),c("activityLabel", "activityLabel"),xcolnms)
 
 row.names(xcolnms) <- 1:nrow(xcolnms)
 
@@ -78,12 +92,28 @@ setwd(currentwd)
 ```
 
 
+A more detailed description of each variable follows:
 
-
-
-You can also embed plots, for example:
-
-```{r}
-
+```{r, echo=FALSE}
+#subjectId
+print(xcolnms[1,1],row.names=FALSE)
 ```
 
+There are 30 subjects in this study overall.  This ID uniquely identifies each subject.  
+There are no units for this variable.
+
+```{r, echo=FALSE}
+#activityLabel
+print(xcolnms[2,1], row.names=FALSE)
+```
+
+Each subject performed multiple activities.  This descriptive label uniquely identifies the activity that was being performed by the subject when the associated measurements were taken.  
+There are no units for this variable.
+
+```{r, echo=FALSE}
+#mean-time-Body-Acc-mean-X
+print(xcolnms[3,1], row.names=FALSE)
+```
+
+This variable is the average of the measurements, in the time domain, of the acceleration componentof the body in the x-direction for each given activity and for each subject.  
+The units for this variable are .
