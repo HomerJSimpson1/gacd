@@ -46,6 +46,9 @@ run_analysis <- function() {
   ## (except for the subjectId and activityLabel columns)
   tidymeans <- ddply(mergemnsd, c("subjectId", "activityLabel"), function(x) sapply(x[4:ncol(x)], mean))
 
+  ## Remove any dashes from the variable names
+  names(tidymeans) <- gsub("-", "_", names(tidymeans))
+
   ## Save the tidy data into a file.  I chose to save both .csv and .txt file versions.
   write.table(tidymeans, file="tidydata.txt", sep="\t", row.names=FALSE)
   write.table(tidymeans, file="tidydata.csv", sep=",", row.names=FALSE)

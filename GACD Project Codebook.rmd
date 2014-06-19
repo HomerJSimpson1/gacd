@@ -9,6 +9,18 @@ This data was collected by a group at the University of California at Irvine.  T
 
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 
+<br/>
+
+<h3>OVERVIEW:</h3>  
+From the information disseminated with the data, we learn that the data for this project were collected from the accelerometer and gyroscope of Samsung smart phones (Galaxy S II model) of 30 subjects (age range 19-48) while performing various activities.  Each subject performed 6 different activities: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, and LAYING.  The accelerometer and gyroscope data were used to determine 3-axial linear acceleration and 3-axial angular velocity of the subjects while performing their activities.  The resulting data was filtered, normalized (within bounds of [-1,1]), and randomly partitioned into training and test data.
+
+Because the data was normalized, the units cancel, and the resulting variables in the data set are therefore unitless.
+
+For our project, we used only a subset of the total data (which consisted of 561 variables plus the subject identifier and the activity identifier).  We selected for our tidy data set the subject id, the activity id (which we replaced with the activity label, as it is more informative), and 66 other variables which represent either the mean or standard deviation of a measurement.
+
+For more details, see the above URL for the project's website.  
+
+<br/>
 
 Below are the column names in the tidy data set (both the original name and the descriptive variable name I applied):
 
@@ -39,6 +51,7 @@ featNames <- function(toplevdir) {
   xcolnames <- gsub("mean\\(\\)", "mean", xcolnames)
   xcolnames <- gsub("std\\(\\)", "st_dev", xcolnames)
   xcolnames <- gsub("--", "-", xcolnames)
+#   xcolnames <- gsub("-", "_", xcolnames)
   
   return(xcolnames)
 }
@@ -85,6 +98,8 @@ xcolnms <- xcolnms[meansd,]
 #xcolnms <- rbind(as.data.frame(c("subjectId","subjectId")),as.data.frame(c("activityLabel", "activityLabel")),xcolnms)
 xcolnms <- rbind(c("subjectId","subjectId"),c("activityLabel", "activityLabel"),xcolnms)
 
+xcolnms[,1] <- gsub("-", "_", xcolnms[,1])
+
 row.names(xcolnms) <- 1:nrow(xcolnms)
 
 print(xcolnms)
@@ -115,5 +130,19 @@ There are no units for this variable.
 print(xcolnms[3,1], row.names=FALSE)
 ```
 
-This variable is the average of the measurements, in the time domain, of the acceleration componentof the body in the x-direction for each given activity and for each subject.  
-The units for this variable are .
+This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration componentof the body in the x-direction for each given activity and for each subject.  
+
+
+```{r, echo=FALSE}
+
+
+```
+
+
+
+
+
+
+
+**Citations:**
+Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
