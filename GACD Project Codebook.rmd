@@ -130,7 +130,7 @@ There are no units for this variable.
 print(xcolnms[3,1], row.names=FALSE)
 ```
 
-This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration componentof the body in the x-direction for each given activity and for each subject.  
+This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration component of the body in the x-direction for each given activity and for each subject.  
 
 
 ```{r, echo=FALSE}
@@ -152,14 +152,16 @@ This variable is the average of the measurements, in the time domain, of the est
 ```
 
 <br/>
+<<<<<<< HEAD
 
 
 
 <br/>
+=======
+>>>>>>> c9d96f8c77d771b235eaedccf0d360b291d01e28
 
 
-
-
+<br/>
 
 **Citations:**
 Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012

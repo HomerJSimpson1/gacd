@@ -1,5 +1,9 @@
 run_analysis <- function() {
   ## Analyze the data for the Getting and Cleaning Data Coursera Class Project.
+<<<<<<< HEAD
+  ## Helper functions are defined after the main function
+=======
+>>>>>>> eb90aecf0868676c4767c5b38a381e389e8c6322
 
   topdir <- "UCI HAR Dataset"
   testloc <- paste(topdir, "/test", sep="")
@@ -35,12 +39,22 @@ run_analysis <- function() {
 
   ## Reorder the columns of the above data set
   mergemnsd <- mergemnsd[c(2,1,ncol(mergemnsd),3:(ncol(mergemnsd)-1))]  
+<<<<<<< HEAD
+=======
 
+>>>>>>> eb90aecf0868676c4767c5b38a381e389e8c6322
   
   ## Create a second tidy data set to calculate the mean for each variable for each activity and each subject.
 
   ## Check to see if the plyr package is installed, as it is required for the ddply() function.
   checkpkg("plyr")
+<<<<<<< HEAD
+  tidymeans <- ddply(mergemnsd, c("subjectId", "activityLabel"), function(x) sapply(x[4:ncol(x)], mean))
+
+  write.table(tidymeans, file="tidydata.txt", sep="\t", row.names=FALSE)
+  write.table(tidymeans, file="tidydata.csv", sep=",", row.names=FALSE)
+  
+=======
 
   ## Use the ddply function from the plyr package to apply the mean function to each of the columns
   ## (except for the subjectId and activityLabel columns)
@@ -54,6 +68,7 @@ run_analysis <- function() {
   write.table(tidymeans, file="tidydata.csv", sep=",", row.names=FALSE)
 
   ## Return the tidy data set to the caller.
+>>>>>>> eb90aecf0868676c4767c5b38a381e389e8c6322
   return(tidymeans)
 }
 

@@ -98,14 +98,12 @@ Below are the column names in the tidy data set (both the original name and the 
 ```
 
 
-
 A more detailed description of each variable follows:
 
 
 ```
 ## [1] "subjectId"
 ```
-
 
 There are 30 subjects in this study overall.  This ID uniquely identifies each subject.  
 There are no units for this variable.
@@ -115,7 +113,6 @@ There are no units for this variable.
 ## [1] "activityLabel"
 ```
 
-
 Each subject performed multiple activities.  This descriptive label uniquely identifies the activity that was being performed by the subject when the associated measurements were taken.  
 There are no units for this variable.
 
@@ -124,6 +121,7 @@ There are no units for this variable.
 ## [1] "mean_time_Body_Acc_mean_X"
 ```
 
+<<<<<<< HEAD
 
 This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration componentof the body in the x-direction for each given activity and for each subject.  
 
@@ -140,12 +138,16 @@ This variable is the average of the measurements, in the time domain, of the est
 ```
 ## [1] "mean_time_Body_Acc_mean_Z"
 ```
+=======
+This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration component of the body in the x-direction for each given activity and for each subject.  
+>>>>>>> c9d96f8c77d771b235eaedccf0d360b291d01e28
 
 This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration componentof the body along the z-axis for each given activity and for each subject.
 
 
 
 
+<br/>
 
 <br/>
 
@@ -156,6 +158,7 @@ This variable is the average of the measurements, in the time domain, of the est
 
 
 
+<br/>
 
 **Citations:**
 Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
