@@ -126,7 +126,7 @@ Each subject performed multiple activities.  This descriptive label uniquely ide
 There are no units for this variable.
 
 ```{r, echo=FALSE}
-#mean-time-Body-Acc-mean-X
+#mean_time_Body_Acc_mean_X
 print(xcolnms[3,1], row.names=FALSE)
 ```
 
@@ -134,11 +134,28 @@ This variable is the average of the measurements, in the time domain, of the est
 
 
 ```{r, echo=FALSE}
+#mean_time_Body_Acc_mean_Y
+print(xcolnms[4,1], row.names=FALSE)
+```
+This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration componentof the body along the y-axis for each given activity and for each subject.
 
+
+```{r, echo=FALSE}
+#mean_time_Body_Acc_mean_Z
+print(xcolnms[5,1], row.names=FALSE)
+```
+This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration componentof the body along the z-axis for each given activity and for each subject.
+
+
+```{r, echo=FALSE}
 
 ```
 
+<br/>
 
+
+
+<br/>
 
 
 

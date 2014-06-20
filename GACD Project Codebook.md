@@ -129,9 +129,29 @@ This variable is the average of the measurements, in the time domain, of the est
 
 
 
+```
+## [1] "mean_time_Body_Acc_mean_Y"
+```
+
+This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration componentof the body along the y-axis for each given activity and for each subject.
 
 
 
+```
+## [1] "mean_time_Body_Acc_mean_Z"
+```
+
+This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration componentof the body along the z-axis for each given activity and for each subject.
+
+
+
+
+
+<br/>
+
+
+
+<br/>
 
 
 
