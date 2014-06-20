@@ -1,0 +1,148 @@
+CODEBOOK FOR GETTING AND CLEANING DATA PROJECT
+========================================================
+
+The Getting and Cleaning Data Coursera Course Project involved preparing a tidy data set from the raw data downloaded from the following URL:
+
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+This data was collected by a group at the University of California at Irvine.  The URL of the website for their project is:
+
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
+<br/>
+
+<h3>OVERVIEW:</h3>  
+From the information disseminated with the data, we learn that the data for this project were collected from the accelerometer and gyroscope of Samsung smart phones (Galaxy S II model) of 30 subjects (age range 19-48) while performing various activities.  Each subject performed 6 different activities: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, and LAYING.  The accelerometer and gyroscope data were used to determine 3-axial linear acceleration and 3-axial angular velocity of the subjects while performing their activities.  The resulting data was filtered, normalized (within bounds of [-1,1]), and randomly partitioned into training and test data.
+
+Because the data was normalized, the units cancel, and the resulting variables in the data set are therefore unitless.
+
+For our project, we used only a subset of the total data (which consisted of 561 variables plus the subject identifier and the activity identifier).  We selected for our tidy data set the subject id, the activity id (which we replaced with the activity label, as it is more informative), and 66 other variables which represent either the mean or standard deviation of a measurement.
+
+For more details, see the above URL for the project's website.  
+
+<br/>
+
+Below are the column names in the tidy data set (both the original name and the descriptive variable name I applied):
+
+```{r echo=FALSE}
+## Set some directory locations
+
+currentwd <- getwd()
+
+setwd("C:/Temp/data/unzipped")
+
+topdir <- "UCI HAR Dataset"
+#testloc <- paste(topdir, "/test", sep="")
+#trainloc <- paste(topdir, "/train", sep="")
+
+
+featNames <- function(toplevdir) {
+  ## Use the original column names from the original data set (located in the "features" file.
+  xcolnames <- read.table(paste(toplevdir, "/features.txt", sep=""), stringsAsFactors=FALSE)
+  xcolnames <- xcolnames[,2]
+
+  ## Use gsub() to replace various components of the feature names.
+  xcolnames <- gsub("^f", "mean-freq-", xcolnames)
+  xcolnames <- gsub("^t", "mean-time-", xcolnames)
+  xcolnames <- gsub("BodyBody", "Body-", xcolnames)
+  xcolnames <- gsub("Body", "Body-", xcolnames)
+  xcolnames <- gsub("Gravity", "Gravity-", xcolnames)
+  xcolnames <- gsub("Mag", "Magnitude", xcolnames)
+  xcolnames <- gsub("mean\\(\\)", "mean", xcolnames)
+  xcolnames <- gsub("std\\(\\)", "st_dev", xcolnames)
+  xcolnames <- gsub("--", "-", xcolnames)
+#   xcolnames <- gsub("-", "_", xcolnames)
+  
+  return(xcolnames)
+}
+
+origcolnames <- read.table(paste(topdir, "/features.txt", sep=""),stringsAsFactors=FALSE)
+origcolnames <- as.vector(origcolnames[,2])
+
+# origcolnames <- as.vector(c("activityLabel",origcolnames))
+# print(str(origcolnames))
+# origcolnames <- c("subjectId",origcolnames)
+# print(str(origcolnames))
+
+#origcolnames <- as.vector(rbind("subjectId", "activityLabel", origcolnames))
+
+#print(str(origcolnames))
+
+xcolumnnames <- as.vector(featNames(topdir))
+#xcolumnnames <- as.vector(rbind("subjectId", "activityLabel", xcolumnnames))
+
+#xcolumnnames <- as.vector(c("activityLabel",xcolumnnames))
+#print(str(xcolumnnames))
+#xcolumnnames <- c("subjectId",xcolumnnames)
+#print(str(xcolumnnames))
+
+#print(str(xcolumnnames))
+
+#xcolumnnames <- as.data.frame(cbind(xcolumnnames, origcolnames),stringsAsFactors=FALSE)
+xcolumnnames <- as.data.frame(cbind(xcolumnnames, origcolnames),stringsAsFactors=FALSE)
+
+names(xcolumnnames) <- c("Descriptive Variable Name", "Original Variable Name")
+#print(xcolumnnames)
+#print(str(xcolumnnames))
+#print(dim(xcolumnnames))
+
+meansd <- sapply(xcolumnnames[,1], function(x) any(grep(paste(c('activityId','subjectId','-mean','st_dev'),collapse='|'), x)))
+xcolnms <- xcolumnnames[meansd,]
+
+#print(str(xcolnms))
+
+## Remove the meanFreq columnns.
+meansd <- sapply(xcolnms[,1], function(x) any(!grepl('meanFreq', x)))
+xcolnms <- xcolnms[meansd,]
+
+#xcolnms <- rbind(as.data.frame(c("subjectId","subjectId")),as.data.frame(c("activityLabel", "activityLabel")),xcolnms)
+xcolnms <- rbind(c("subjectId","subjectId"),c("activityLabel", "activityLabel"),xcolnms)
+
+xcolnms[,1] <- gsub("-", "_", xcolnms[,1])
+
+row.names(xcolnms) <- 1:nrow(xcolnms)
+
+print(xcolnms)
+setwd(currentwd)
+```
+
+
+A more detailed description of each variable follows:
+
+```{r, echo=FALSE}
+#subjectId
+print(xcolnms[1,1],row.names=FALSE)
+```
+
+There are 30 subjects in this study overall.  This ID uniquely identifies each subject.  
+There are no units for this variable.
+
+```{r, echo=FALSE}
+#activityLabel
+print(xcolnms[2,1], row.names=FALSE)
+```
+
+Each subject performed multiple activities.  This descriptive label uniquely identifies the activity that was being performed by the subject when the associated measurements were taken.  
+There are no units for this variable.
+
+```{r, echo=FALSE}
+#mean-time-Body-Acc-mean-X
+print(xcolnms[3,1], row.names=FALSE)
+```
+
+This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration componentof the body in the x-direction for each given activity and for each subject.  
+
+
+```{r, echo=FALSE}
+
+
+```
+
+
+
+
+
+
+
+**Citations:**
+Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
