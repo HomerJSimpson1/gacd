@@ -12,13 +12,15 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
 <br/>
 
 <h3>OVERVIEW:</h3>  
-From the information disseminated with the data, we learn that the data for this project were collected from the accelerometer and gyroscope of Samsung smart phones (Galaxy S II model) of 30 subjects (age range 19-48) while performing various activities.  Each subject performed 6 different activities: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, and LAYING.  The accelerometer and gyroscope data were used to determine 3-axial linear acceleration and 3-axial angular velocity of the subjects while performing their activities.  The resulting data was filtered, normalized (within bounds of [-1,1]), and randomly partitioned into training and test data.
+From the information disseminated with the data, we learn that the data for this project were collected from the accelerometer and gyroscope of Samsung smart phones (Galaxy S II model) of 30 subjects (age range 19-48) while performing various activities.  Each subject performed 6 different activities: WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, and LAYING.  The accelerometer (measures acceleration) and gyroscope (measures orientation, which can be utilized to ascertain angular velocity) data were used to determine 3-axial linear acceleration and 3-axial angular velocity of the subjects while performing their activities.  The acceleration data was separated into two signals: the signal for the body's acceleration (dynamic acceleration) and the signal for the acceleration due to gravity (static acceleration). The resulting data was filtered, normalized (within bounds of [-1,1]), and randomly partitioned into training and test data.
 
-Because the data was normalized, the units cancel, and the resulting variables in the data set are therefore unitless.
+**NOTES REGARDING UNITS:** Because the data was normalized, the units cancel, and the resulting variables in the data set are therefore unitless.  The only other variables are subjectId and activityLabel, so actually all of the variables in the data set are unitless.  Therefore, no discussion of units will occur below.
 
 For our project, we used only a subset of the total data (which consisted of 561 variables plus the subject identifier and the activity identifier).  We selected for our tidy data set the subject id, the activity id (which we replaced with the activity label, as it is more informative), and 66 other variables which represent either the mean or standard deviation of a measurement.
 
 For more details, see the above URL for the project's website.  
+
+Except for the activityLabel variable (a categorical variable), all of the variables are numerical variables.  All of the numerical variables, except the subjectId variable, are continuous numerical variables.
 
 <br/>
 
@@ -98,15 +100,18 @@ Below are the column names in the tidy data set (both the original name and the 
 ```
 
 
-A more detailed description of each variable follows:
-
+<br/><br/>
+<h3>VARIABLE DESCRIPTIONS:</h3>
+A more detailed description of each variable follows:  
+<br/><br/>
 
 ```
 ## [1] "subjectId"
 ```
 
 There are 30 subjects in this study overall.  This ID uniquely identifies each subject.  
-There are no units for this variable.
+**Variable Type:** Discrete numerical variable  
+**Variable Domain:** [1,30]  
 
 
 ```
@@ -114,42 +119,229 @@ There are no units for this variable.
 ```
 
 Each subject performed multiple activities.  This descriptive label uniquely identifies the activity that was being performed by the subject when the associated measurements were taken.  
-There are no units for this variable.
+**Variable Type:** Categorical (nominal) variable  
+**Set of Possible Values:**  
+* WALKING
+* WALKING_UPSTAIRS
+* WALKING_DOWNSTAIRS
+* SITTING
+* STANDING
+* LAYING  
+
+<br/><br/>
+
+**TIME DOMAIN VARIABLES**  
+
+```
+## [1] "mean_time_Body_Acc_mean_X, mean_time_Body_Acc_mean_Y, mean_time_Body_Acc_mean_Z"
+```
+
+These variables are the averages of the estimated means of the measurements, in the time domain, of the acceleration component of the body in the x, y, and z-axes respectively, for each given activity and for each subject.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
 
 
 ```
-## [1] "mean_time_Body_Acc_mean_X"
+## [1] "mean_time_Body_Acc_st_dev_X, mean_time_Body_Acc_st_dev_Y, mean_time_Body_Acc_st_dev_Z"
 ```
 
-<<<<<<< HEAD
-
-This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration componentof the body in the x-direction for each given activity and for each subject.  
-
-
-
-```
-## [1] "mean_time_Body_Acc_mean_Y"
-```
-
-This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration componentof the body along the y-axis for each given activity and for each subject.
-
+These variables are the averages of the estimated standard deviations of the measurements, in the time domain, of the acceleration component of the body along the x-axis, y-axis, and z-axis respectively, for each given activity and for each subject.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
 
 
 ```
-## [1] "mean_time_Body_Acc_mean_Z"
+## [1] "mean_time_Gravity_Acc_mean_X, mean_time_Gravity_Acc_mean_Y, mean_time_Gravity_Acc_mean_Z"
 ```
-=======
-This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration component of the body in the x-direction for each given activity and for each subject.  
->>>>>>> c9d96f8c77d771b235eaedccf0d360b291d01e28
 
-This variable is the average of the measurements, in the time domain, of the estimated mean of the acceleration componentof the body along the z-axis for each given activity and for each subject.
+These variables are the averages of the estimated means of the measurements, in the time domain, of the acceleration component due to gravity along the x, y, and z-axes, for each given activity and for each subject.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Gravity_Acc_st_dev_X, mean_time_Gravity_Acc_st_dev_Y, mean_time_Gravity_Acc_st_dev_Z"
+```
+
+These variables are the averages of the estimated standard deviations of the measurements, in the time domain, of the acceleration component due to gravity along the x, y, and z-axes for each given activity and for each subject.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Body_AccJerk_mean_X, mean_time_Body_AccJerk_mean_Y, mean_time_Body_AccJerk_mean_Z"
+```
+
+These variables are the averages of the estimated means of the measurements, in the time domain, of the jerk (the jerk is the acceleration of the acceleration, here it is the body's linear acceleration that was derived) component of the body along the x, y, and z-axes for each given activity and for each subject.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Body_AccJerk_st_dev_X, mean_time_Body_AccJerk_st_dev_Y, mean_time_Body_AccJerk_st_dev_Z"
+```
+
+These variables are the averages of the estimated standard deviations of the measurements, in the time domain, of the jerk component of the body along the x, y, and z-axes for each given activity and for each subject.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Body_Gyro_mean_X, mean_time_Body_Gyro_mean_Y, mean_time_Body_Gyro_mean_Z"
+```
+
+These variables are the averages of the estimated means of the measurements, in the time domain, of the body's orientation component along the x, y, and z-axes for each given activity and for each subject.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Body_Gyro_st_dev_X, mean_time_Body_Gyro_st_dev_Y, mean_time_Body_Gyro_st_dev_Z"
+```
+
+These variables are the averages of the estimated standard deviations of the measurements, in the time domain, of the body's orientation component along the x, y, and z-axes for each given activity and for each subject.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Body_GyroJerk_mean_X, mean_time_Body_GyroJerk_mean_Y, mean_time_Body_GyroJerk_mean_Z"
+```
+
+These variables are the averages of the estimated means of the measurements, in the time domain, of the angular velocity component (jerk signal derived from orientation information) of the body along the x, y, and z-axes for each given activity and for each subject.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Body_GyroJerk_st_dev_X, mean_time_Body_GyroJerk_st_dev_Y, mean_time_Body_GyroJerk_st_dev_Z"
+```
+
+These variables are the averages of the estimated standard deviations of the measurements, in the time domain, of the angular velocity (jerk signal derived from orientation information) component of the body along the x, y, and z-axes for each given activity and for each subject.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Body_AccMagnitude_mean"
+```
+
+This variable is the average of the estimated means of the magnitudes of the measurements, in the time domain, of the acceleration component of the body for each given activity and for each subject. The magnitudes here are calculated using the Euclidean norm of the tri-axial measurements.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Body_AccMagnitude_st_dev"
+```
+
+This variable is the average of the estimated standard deviations of the magnitudes of the measurements, in the time domain, of the acceleration component of the body for each given activity and for each subject. The magnitudes here are calculated using the Euclidean norm of the tri-axial measurements.    
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Gravity_AccMagnitude_mean"
+```
+
+This variable is the average of the estimated means of the magnitudes of the measurements, in the time domain, of the acceleration component due to gravity for each given activity and for each subject. The magnitudes here are calculated using the Euclidean norm of the tri-axial measurements.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Gravity_AccMagnitude_st_dev"
+```
+
+This variable is the average of the estimated standard deviations of the magnitude of the measurements, in the time domain, of the acceleration component due to gravity for each given activity and for each subject. The magnitudes here are calculated using the Euclidean norm of the tri-axial measurements.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Body_AccJerkMagnitude_mean"
+```
+
+This variable is the average of the estimated means of the magnitudes of the measurements, in the time domain, of the acceleration jerk component of the body (linear acceleration) for each given activity and for each subject. The magnitudes here are calculated using the Euclidean norm of the tri-axial measurements.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Body_AccJerkMagnitude_st_dev"
+```
+
+This variable is the average of the estimated standard deviations of the magnitudes of the measurements, in the time domain, of the acceleration jerk component of the body (linear acceleration) for each given activity and for each subject. The magnitudes here are calculated using the Euclidean norm of the tri-axial measurements.    
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1] 
+
+
+```
+## [1] "mean_time_Body_GyroMagnitude_mean"
+```
+
+This variable is the average of the estimated means of the magnitudes of the measurements, in the time domain, of the orientation component of the body for each given activity and for each subject. The magnitudes here are calculated using the Euclidean norm of the tri-axial measurements.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Body_GyroMagnitude_st_dev"
+```
+
+This variable is the average of the estimated standard deviations of the magnitudes of the measurements, in the time domain, of the orientation component of the body for each given activity and for each subject. The magnitudes here are calculated using the Euclidean norm of the tri-axial measurements.    
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1] 
+
+
+```
+## [1] "mean_time_Body_GyroJerkMagnitude_mean"
+```
+
+This variable is the average of the estimated means of the magnitudes of the measurements, in the time domain, of the angular velocity (jerk signal) component of the body for each given activity and for each subject. The magnitudes here are calculated using the Euclidean norm of the tri-axial measurements.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_time_Body_GyroJerkMagnitude_st_dev"
+```
+
+This variable is the average of the estimated standard deviations of the magnitudes of the measurements, in the time domain, of the angular velocity (jerk signal) component of the body for each given activity and for each subject. The magnitudes here are calculated using the Euclidean norm of the tri-axial measurements.    
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1] 
+
+<br/><br/>
+
+**FREQUENCY DOMAIN VARIABLES**  
+
+```
+## [1] "mean_freq_Body_Acc_mean_X, mean_freq_Body_Acc_mean_Y, mean_freq_Body_Acc_mean_Z"
+```
+
+These variables are the averages of the estimated means of the measurements, in the frequency domain (calculated by applying a Fast Fourier Transform), of the acceleration component of the body in the x, y, and z-axes respectively, for each given activity and for each subject.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+```
+## [1] "mean_freq_Body_Acc_st_dev_X, mean_freq_Body_Acc_st_dev_Y, mean_freq_Body_Acc_st_dev_Z"
+```
+
+These variables are the averages of the estimated standard deviations of the measurements, in the frequency domain (calculated by applying a Fast Fourier Transform), of the acceleration component of the body along the x-axis, y-axis, and z-axis respectively, for each given activity and for each subject.  
+**Variable Type:** Continuous numerical variable  
+**Variable Domain:** [-1,1]  
+
+
+
+
+
 
 
 
 
 <br/>
 
-<br/>
 
 
 
