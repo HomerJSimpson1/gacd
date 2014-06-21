@@ -16,7 +16,8 @@ From the information disseminated with the data, we learn that the data for this
 
 **NOTES REGARDING UNITS:** Because the data was normalized, the units cancel, and the resulting variables in the data set are therefore unitless.  The only other variables are subjectId and activityLabel, so actually all of the variables in the data set are unitless.  Therefore, no discussion of units will occur below.
 
-For our project, we used only a subset of the total data (which consisted of 561 variables plus the subject identifier and the activity identifier).  We selected for our tidy data set the subject id, the activity id (which we replaced with the activity label, as it is more informative), and 66 other variables which represent either the mean or standard deviation of a measurement.
+**DATA TRANSFORMATIONS I APPLIED**
+For our project, we used only a subset of the total data (which consisted of 561 variables plus the subject identifier and the activity identifier).  We selected for our tidy data set the subject id, the activity id (which we replaced with the activity label, as it is more informative), and 66 other variables which represent either the mean or standard deviation of a measurement.  We then calculated the mean for each of the columns (except of course subjectId and activityId/activityLabel) for each subject for each activity (i.e. grouped by subject and activity).
 
 For more details, see the above URL for the project's website.  
 

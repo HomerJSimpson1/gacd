@@ -36,24 +36,22 @@ run_analysis <- function() {
   mergemnsd <- merge(combmnsd, activs, by.x="activityId", by.y="activityId")
 
   ## Reorder the columns of the above data set
-  mergemnsd <- mergemnsd[c(2,1,ncol(mergemnsd),3:(ncol(mergemnsd)-1))]  
+  mergemnsd <- mergemnsd[c(2,1,ncol(mergemnsd),3:(ncol(mergemnsd)-1))]
+  names(mergemnsd) <- gsub("-", "_", names(mergemnsd))
   
   ## Create a second tidy data set to calculate the mean for each variable for each activity and each subject.
 
   ## Check to see if the plyr package is installed, as it is required for the ddply() function.
   checkpkg("plyr")
-  tidymeans <- ddply(mergemnsd, c("subjectId", "activityLabel"), function(x) sapply(x[4:ncol(x)], mean))
-
-  write.table(tidymeans, file="tidydata.txt", sep="\t", row.names=FALSE)
-  write.table(tidymeans, file="tidydata.csv", sep=",", row.names=FALSE)
   
   ## Use the ddply function from the plyr package to apply the mean function to each of the columns
   ## (except for the subjectId and activityLabel columns)
   tidymeans <- ddply(mergemnsd, c("subjectId", "activityLabel"), function(x) sapply(x[4:ncol(x)], mean))
 
   ## Remove any dashes from the variable names
-  names(tidymeans) <- gsub("-", "_", names(tidymeans))
-
+  #names(tidymeans) <- gsub("-", "_", names(tidymeans))
+  #print(str(tidymeans))
+  
   ## Save the tidy data into a file.  I chose to save both .csv and .txt file versions.
   write.table(tidymeans, file="tidydata.txt", sep="\t", row.names=FALSE)
   write.table(tidymeans, file="tidydata.csv", sep=",", row.names=FALSE)
